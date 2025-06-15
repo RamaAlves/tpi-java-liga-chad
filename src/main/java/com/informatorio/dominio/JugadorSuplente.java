@@ -29,5 +29,10 @@ public class JugadorSuplente extends Jugador {
     public String getRol() {
         return "Suplente";
     }
+
+    @Override
+    public double porcentajeEficiencia() {
+        return (this.getCantidadDeGoles() / partidosIngresados)*100;
+    }
     
 }

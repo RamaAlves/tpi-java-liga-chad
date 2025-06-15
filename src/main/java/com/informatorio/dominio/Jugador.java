@@ -43,4 +43,6 @@ public abstract class Jugador {
 
     public abstract String getRol();
 
+    public abstract double porcentajeEficiencia();
+
 }

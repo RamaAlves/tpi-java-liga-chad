@@ -29,5 +29,10 @@ public class JugadorTitular extends Jugador {
     public String getRol() {
         return "Titular";
     }
+
+    @Override
+    public double porcentajeEficiencia() {
+        return (this.getCantidadDeGoles() / minutosJugados)*100;
+    }
     
 }

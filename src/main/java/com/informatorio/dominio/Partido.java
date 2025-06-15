@@ -26,12 +26,24 @@ public class Partido {
         return equipos;
     }
 
+    public Equipo getEquipo1() {
+        return equipos.getFirst();
+    }
+
+    public Equipo getEquipo2() {
+        return equipos.getLast();
+    }
+
     public void setEquipos(List<Equipo> equipos) {
         this.equipos = equipos;
     }
 
     public Map<Equipo, Integer> getResultado() {
         return resultado;
+    }
+
+    public int getResultadoPorEquipo(Equipo equipo) {
+        return resultado.get(equipo);
     }
     
     public void setResultado(Map<Equipo, Integer> resultado) {

@@ -13,12 +13,18 @@ public interface EvaluadorDeEstadisticasService {
     public void reporteGeneral();
 
     public void reporteEquipo(Equipo equipo);//👍
+
+    public void reporteEquipoPorTerminal();
     
     public List<Jugador> getGoleadores();//👍
 
     public List<JugadorTitular> getTitularesMasEficientes();
     
     public List<JugadorSuplente> getSuplentesMasEficientes();
+
+    public List<JugadorTitular> getTitularesConMasMinutos();
+
+    public void listarTitularesConMasMinutos();
 
     public void mostrarGoleadores();//👍
 

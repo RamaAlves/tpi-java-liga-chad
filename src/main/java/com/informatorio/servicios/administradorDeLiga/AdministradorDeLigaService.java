@@ -1,5 +1,6 @@
 package com.informatorio.servicios.administradorDeLiga;
 
+
 import java.util.List;
 
 import com.informatorio.dominio.Equipo;
@@ -8,20 +9,54 @@ import com.informatorio.dominio.Partido;
 
 public interface AdministradorDeLigaService {
 
-    String listarEquipos(List<Equipo> equipos);
+    public void listarEquipos();
 
-    void registrarEquipo(List<Equipo> equipos);
+    public void listarEquipos(List<Equipo> equiposAListar, String mensajePersonalizado);
 
-    void registrarJugador(Equipo equipo);
+    public void listarPartidos();
+    
+    public void listarJugadoresEnLaLiga();
 
-    void registrarPartido(List<Equipo> equipos, List<Partido> partidos);
+    public void listarJugadoresDeUnEquipo();
 
-    String mostrarJugadores(List<Equipo> equipos);
+    public Equipo getEquipoPorNombre(String nombreEquipo);
 
-    void cambiarJugador(Jugador jugadorSuplente, Jugador jugadortitular, int minutos);
+    public void registrarEquipo(Equipo equipo);
 
-    void transferirJugadores(Equipo equipoEmisor, Equipo equipoReceptor);
+    public void registrarEquipoPorTerminal();
 
+    public void registrarJugador(Equipo equipo, Jugador jugador);
+
+    public void registrarJugadorPorTerminal();
+
+    public void registrarPartido(List<Equipo> equipos);
+
+    public Partido getPartidoEnCurso();
+
+    public void registrarPartidoPorTerminal();
+
+    public void registrarGolEnPartido(Partido partido, Jugador jugador, int goles);
+
+    public void registrarGolPorTerminal(Partido partido);
+    
+    public void eliminarGolEnPartido(Partido partido, Jugador jugador);
+    
+    public void eliminarGolPorTerminal(Partido partido);
+
+    public void finalizarPartido(Partido partido);
+
+    public void mostrarJugadores(Equipo equipo);
+
+    public void cambiarJugador(Jugador jugadorSuplente, Jugador jugadortitular, int minutos);
+
+    public void cambiarJugadorPorTerminal(Partido partido);
+    
+    public void transferirJugadores(Equipo equipoEmisor, Equipo equipoReceptor, Jugador JugadorSaliente,
+            Jugador JugadorEntrante);
+
+    public void transferirJugadoresPorTerminal();
+
+    public void cargarMinutosJugadosATitulares(Equipo equipo, int minutos);
     //csv exportarJugadores(List<Equipo>)
 
 }

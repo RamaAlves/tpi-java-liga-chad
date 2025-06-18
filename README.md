@@ -5,13 +5,19 @@
 Este repositorio contiene el Trabajo practico integrador de la primer parte
 de la especialización en Java brindada por el Informatorio
 
+## Falta implementar:
+
+- exportar CSV
+- Reporte general
+- Reporte por equipo
+
 ## Escenario:
 
-- [**Escenario**](./docs/escenario/docs/escenario/Escenario-TPI-JAVA.pdf)
+- [**Escenario**](./docs/escenario/Escenario-TPI-JAVA.pdf)
 
 ## Diagrama de clases:
 
-- [**Diagrama**](./docs/)
+- [**Diagrama**](./docs/diagrama/TPI_Java.jpg)
 
 ## Autor:
 

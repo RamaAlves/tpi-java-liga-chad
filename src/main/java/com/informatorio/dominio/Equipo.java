@@ -1,15 +1,18 @@
 package com.informatorio.dominio;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class Equipo {
     private String nombre;
-    private List<Jugador> listaDeJugadores;
+    private Set<Jugador> listaDeJugadores;
 
     public Equipo(String nombre) {
         this.nombre = nombre;
-        this.listaDeJugadores = new ArrayList<Jugador>();
+        this.listaDeJugadores = new HashSet<Jugador>();
     }
 
     public String getNombre() {
@@ -20,16 +23,23 @@ public class Equipo {
         this.nombre = nombre;
     }
 
-    public List<Jugador> getListaDeJugadores() {
+    public Set<Jugador> getListaDeJugadores() {
         return listaDeJugadores;
     }
 
-    public void setListaDeJugadores(List<Jugador> listaDeJugadores) {
+    public void setListaDeJugadores(Set<Jugador> listaDeJugadores) {
         this.listaDeJugadores = listaDeJugadores;
     }
 
     public void registrarJugador(Jugador jugador) {
-        listaDeJugadores.add(jugador);
+        if (jugador == null) {
+            System.out.println("No se puede registrar un jugador nulo.");
+        }
+        if (listaDeJugadores.add(jugador)) {
+            System.out.printf("%s registrado con exito en el equipo!%nSu número de registro es %d%n", jugador.getNombre(), jugador.getNumeroRegistro());
+        } else {
+            System.out.printf("Ya existe en el equipo un jugador registrado con el numero %d.%n No se puede registrar a %s%n",jugador.getNumeroRegistro(), jugador.getNombre());
+        }
     }
 
     public Jugador getJugarorPorNombre(String nombre) {
@@ -66,27 +76,76 @@ public class Equipo {
         }
         return listaDeJugadoresSuplentes;
     }
-    
-    public Jugador getMejorJugador() {
-        Jugador mejorJugador = listaDeJugadores.get(0);
-        for (Jugador jugador : listaDeJugadores) {
-            if (jugador.getCantidadDeGoles() > mejorJugador.getCantidadDeGoles()) {
-                mejorJugador = jugador;
+
+    public ArrayList<JugadorSuplente> getListaDeJugadoresSinJugar() {
+        ArrayList<JugadorSuplente> listaDeJugadoresSinJugar = new ArrayList<JugadorSuplente>();
+        for (JugadorSuplente jugadorSuplente : getListaDeJugadoresSuplentes()) {
+            if (jugadorSuplente.getPartidosIngresados()==0) {
+                listaDeJugadoresSinJugar.add(jugadorSuplente);
             }
         }
-        return mejorJugador;
+        return listaDeJugadoresSinJugar;
     }
     
-    public JugadorTitular getJugadorConMasMinutos() {
-        ArrayList<JugadorTitular> listaDeJugadoresTitulares = getListaDeJugadoresTitulares();
-        JugadorTitular jugadorConMasMinutos = listaDeJugadoresTitulares.get(0);
-
-        for (JugadorTitular jugador : listaDeJugadoresTitulares) {
-            if (jugador.getMinutosJugados() > jugadorConMasMinutos.getMinutosJugados()) {
-                jugadorConMasMinutos = jugador;
+    public List<Jugador> getMejoresJugadores() {
+        List<Jugador> mejoresJugadores = new ArrayList<Jugador>();
+        int maximoDeGoles = 0;
+        for (Jugador jugador : listaDeJugadores) {
+            int golesJugador = jugador.getCantidadDeGoles();
+            if (golesJugador > maximoDeGoles) {
+                mejoresJugadores.clear();
+                mejoresJugadores.add(jugador);
+                maximoDeGoles = golesJugador;
+            } else if (golesJugador == maximoDeGoles &&maximoDeGoles>0) {
+                mejoresJugadores.add(jugador);
             }
         }
-        return jugadorConMasMinutos;
+        return mejoresJugadores;
+    }
+
+    public List<JugadorSuplente> getSuplentesMasEficiente() {
+        List<JugadorSuplente> jugadoresMasEficientes = new ArrayList<JugadorSuplente>();
+        jugadoresMasEficientes.add(getListaDeJugadoresSuplentes().get(0));
+        for (JugadorSuplente jugador : getListaDeJugadoresSuplentes()) {
+            if (jugador.porcentajeEficiencia() > jugadoresMasEficientes.getLast().porcentajeEficiencia()) {
+                jugadoresMasEficientes.clear();
+                jugadoresMasEficientes.add(jugador);
+            } else if (jugador.porcentajeEficiencia() == jugadoresMasEficientes.getLast().porcentajeEficiencia()) {
+                jugadoresMasEficientes.add(jugador);
+            }
+        }
+        return jugadoresMasEficientes;
+    }
+
+    public List<JugadorTitular> getTitularesMasEficiente() {
+        List<JugadorTitular> jugadoresMasEficientes = new ArrayList<JugadorTitular>();
+        int mayorPorcentajeEficiencia = 0;
+        for (JugadorTitular jugador : getListaDeJugadoresTitulares()) {
+            if (jugador.porcentajeEficiencia() > mayorPorcentajeEficiencia) {
+                jugadoresMasEficientes.clear();
+                jugadoresMasEficientes.add(jugador);
+                mayorPorcentajeEficiencia = jugador.porcentajeEficiencia();
+            } else if (jugador.porcentajeEficiencia() == mayorPorcentajeEficiencia&&mayorPorcentajeEficiencia>0) {
+                jugadoresMasEficientes.add(jugador);
+            }
+        }
+        return jugadoresMasEficientes;
+    }
+    
+    public List<JugadorTitular> getJugadoresConMasMinutos() {
+        ArrayList<JugadorTitular> listaDeJugadoresTitulares = getListaDeJugadoresTitulares();
+        ArrayList<JugadorTitular> jugadoresConMasMinutos = new ArrayList<>();
+        int minutosMaximos = 0;
+        for (JugadorTitular jugador : listaDeJugadoresTitulares) {
+            if (jugador.getMinutosJugados() > minutosMaximos) {
+                jugadoresConMasMinutos.clear();
+                jugadoresConMasMinutos.add(jugador);
+                minutosMaximos = jugador.getMinutosJugados();
+            } else if (jugador.getMinutosJugados() == minutosMaximos&&minutosMaximos>0) {
+                jugadoresConMasMinutos.add(jugador);
+            }
+        }
+        return jugadoresConMasMinutos;
     }
 
     public ArrayList<Jugador> getJugadoresSinGoles() {
@@ -99,18 +158,27 @@ public class Equipo {
         return jugadoresSinGoles;
     }
     
-    public JugadorSuplente getSuplenteMasUsado() {
-        ArrayList<JugadorSuplente> listaDeJugadoresSuplentes = getListaDeJugadoresSuplentes();
-        JugadorSuplente suplenteMasUsado = listaDeJugadoresSuplentes.get(0);
-        for (JugadorSuplente jugador : listaDeJugadoresSuplentes) {
-            if (jugador.getPartidosIngresados() > suplenteMasUsado.getPartidosIngresados()) {
-                suplenteMasUsado = jugador;
+    public List<JugadorSuplente> getSuplentesMasUsado() {
+        ArrayList<JugadorSuplente> listaDeSuplentesMasUsados = new ArrayList<JugadorSuplente>();
+        listaDeSuplentesMasUsados.add(getListaDeJugadoresSuplentes().get(0));
+        for (JugadorSuplente jugador : getListaDeJugadoresSuplentes()) {
+            if (jugador.getPartidosIngresados() > listaDeSuplentesMasUsados.getLast().getPartidosIngresados()) {
+                listaDeSuplentesMasUsados.clear();
+                listaDeSuplentesMasUsados.add(jugador);
+            } else if (jugador.getPartidosIngresados() == listaDeSuplentesMasUsados.getLast().getPartidosIngresados()) {
+                listaDeSuplentesMasUsados.add(jugador);
             }
         }
-        return suplenteMasUsado;
+        return listaDeSuplentesMasUsados;
+    }
+    
+    public void comienzaElJuego() {
+        for (Jugador jugador : getListaDeJugadoresTitulares()) {
+            jugador.entrarALaCancha();
+        }
     }
 
-    public int getTotalDeGoles() {
+    public int getTotalDeGolesDeJugadores() {
         int totalDeGoles = 0;
         for (Jugador jugador : listaDeJugadores) {
             totalDeGoles = totalDeGoles + jugador.getCantidadDeGoles();
@@ -122,8 +190,24 @@ public class Equipo {
         return listaDeJugadores.size();
     }
     
-    public double getPromedioGoles() {
-        return getTotalDeGoles() / getTotalDeJugadores();
+    public double getPromedioGolesPorJugadores() {
+        return getTotalDeGolesDeJugadores() / getTotalDeJugadores();
     }
 
+    public boolean listoParaJugar() {
+        return getListaDeJugadoresTitulares().size() >= 5;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Equipo equipo = (Equipo) o;
+        return Objects.equals(nombre, equipo.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre); 
+    }
 }

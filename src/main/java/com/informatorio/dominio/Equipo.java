@@ -105,12 +105,14 @@ public class Equipo {
 
     public List<JugadorSuplente> getSuplentesMasEficiente() {
         List<JugadorSuplente> jugadoresMasEficientes = new ArrayList<JugadorSuplente>();
-        jugadoresMasEficientes.add(getListaDeJugadoresSuplentes().get(0));
+        double mayorPorcentajeEficiencia = 0.0;
         for (JugadorSuplente jugador : getListaDeJugadoresSuplentes()) {
-            if (jugador.porcentajeEficiencia() > jugadoresMasEficientes.getLast().porcentajeEficiencia()) {
+            double porcentajeJugador = jugador.porcentajeEficiencia();
+            if (porcentajeJugador > mayorPorcentajeEficiencia) {
                 jugadoresMasEficientes.clear();
                 jugadoresMasEficientes.add(jugador);
-            } else if (jugador.porcentajeEficiencia() == jugadoresMasEficientes.getLast().porcentajeEficiencia()) {
+                mayorPorcentajeEficiencia = porcentajeJugador;
+            } else if (porcentajeJugador == mayorPorcentajeEficiencia&&mayorPorcentajeEficiencia>0.0) {
                 jugadoresMasEficientes.add(jugador);
             }
         }
@@ -119,13 +121,14 @@ public class Equipo {
 
     public List<JugadorTitular> getTitularesMasEficiente() {
         List<JugadorTitular> jugadoresMasEficientes = new ArrayList<JugadorTitular>();
-        int mayorPorcentajeEficiencia = 0;
+        double mayorPorcentajeEficiencia = 0.0;
         for (JugadorTitular jugador : getListaDeJugadoresTitulares()) {
-            if (jugador.porcentajeEficiencia() > mayorPorcentajeEficiencia) {
+            double porcentajeJugador = jugador.porcentajeEficiencia();
+            if (porcentajeJugador > mayorPorcentajeEficiencia) {
                 jugadoresMasEficientes.clear();
                 jugadoresMasEficientes.add(jugador);
-                mayorPorcentajeEficiencia = jugador.porcentajeEficiencia();
-            } else if (jugador.porcentajeEficiencia() == mayorPorcentajeEficiencia&&mayorPorcentajeEficiencia>0) {
+                mayorPorcentajeEficiencia = porcentajeJugador;
+            } else if (porcentajeJugador == mayorPorcentajeEficiencia&&mayorPorcentajeEficiencia>0.0) {
                 jugadoresMasEficientes.add(jugador);
             }
         }
@@ -157,15 +160,17 @@ public class Equipo {
         }
         return jugadoresSinGoles;
     }
-    
+    //corregir
     public List<JugadorSuplente> getSuplentesMasUsado() {
         ArrayList<JugadorSuplente> listaDeSuplentesMasUsados = new ArrayList<JugadorSuplente>();
-        listaDeSuplentesMasUsados.add(getListaDeJugadoresSuplentes().get(0));
+        int masIngresos = 0;
         for (JugadorSuplente jugador : getListaDeJugadoresSuplentes()) {
-            if (jugador.getPartidosIngresados() > listaDeSuplentesMasUsados.getLast().getPartidosIngresados()) {
+            int ingresosJugador = jugador.getPartidosIngresados();
+            if (ingresosJugador > masIngresos) {
                 listaDeSuplentesMasUsados.clear();
                 listaDeSuplentesMasUsados.add(jugador);
-            } else if (jugador.getPartidosIngresados() == listaDeSuplentesMasUsados.getLast().getPartidosIngresados()) {
+                masIngresos = ingresosJugador;
+            } else if (ingresosJugador == masIngresos && masIngresos>0) {
                 listaDeSuplentesMasUsados.add(jugador);
             }
         }

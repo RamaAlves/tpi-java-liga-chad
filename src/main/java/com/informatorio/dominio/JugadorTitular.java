@@ -45,11 +45,18 @@ public class JugadorTitular extends Jugador {
     }
 
     @Override
-    public int porcentajeEficiencia() {
-        if (getMinutosJugados() > 0) {
-            return (this.getCantidadDeGoles() / getMinutosJugados()) * 100;
-        }
-        return 0;
+    public double porcentajeEficiencia() {
+         int minutos = getMinutosJugados();
+         int goles = getCantidadDeGoles();
+    
+    if (minutos <= 0) {
+        return 0.0;
+    }
+    double partidosEquivalentesJugados = (double) minutos / 90.0;
+    if (partidosEquivalentesJugados == 0) {
+        return 0.0; 
+    }
+    return (goles / partidosEquivalentesJugados) * 100.0;
     }
     
 }

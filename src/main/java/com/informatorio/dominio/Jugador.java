@@ -72,7 +72,7 @@ public abstract class Jugador {
 
     public abstract String getRol();
 
-    public abstract int porcentajeEficiencia();
+    public abstract double porcentajeEficiencia();
 
     public abstract void salirDeLaCancha(int minutos);
 

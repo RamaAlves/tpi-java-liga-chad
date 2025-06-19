@@ -8,8 +8,6 @@ de la especialización en Java brindada por el Informatorio
 ## Falta implementar:
 
 - exportar CSV
-- Reporte general
-- Reporte por equipo
 
 ## Escenario:
 
@@ -17,7 +15,7 @@ de la especialización en Java brindada por el Informatorio
 
 ## Diagrama de clases:
 
-- [**Diagrama**](./docs/diagrama/TPI_Java.jpg)
+- [**Diagrama**](./docs/diagrama/TPI_Java.png)
 
 ## Autor:
 

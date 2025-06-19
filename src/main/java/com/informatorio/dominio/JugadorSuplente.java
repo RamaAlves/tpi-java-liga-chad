@@ -31,11 +31,14 @@ public class JugadorSuplente extends Jugador {
     }
 
     @Override
-    public int porcentajeEficiencia() {
-        if (getPartidosIngresados() > 0) {
-            return (this.getCantidadDeGoles() / getPartidosIngresados()) * 100;
+    public double porcentajeEficiencia() {
+        int goles = getCantidadDeGoles();
+        int partidosJugados = getPartidosIngresados();
+        if (partidosJugados <= 0) {
+            return 0.0;
         }
-        return 0;
+        double porcentajeEficiencia=(goles / partidosJugados) * 100;
+        return porcentajeEficiencia;
     }
     
     @Override

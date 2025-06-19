@@ -76,6 +76,8 @@ public class App {
         administradorDeLiga.registrarGolEnPartido(partido1,
         administradorDeLiga.getEquipoPorNombre("Boca").getJugarorPorNombre("Facundo"), 1);
         administradorDeLiga.cambiarJugador(administradorDeLiga.getEquipoPorNombre("Boca").getJugarorPorNombre("Suplente1"),administradorDeLiga.getEquipoPorNombre("Boca").getJugarorPorNombre("Diego"), 45);
+        administradorDeLiga.registrarGolEnPartido(partido1,
+        administradorDeLiga.getEquipoPorNombre("Boca").getJugarorPorNombre("Suplente1"), 2);
         administradorDeLiga.finalizarPartido(partido1);
 
         List<Equipo> equiposPartido2 = new ArrayList<>();
@@ -89,6 +91,8 @@ public class App {
         administradorDeLiga.registrarGolEnPartido(partido2,
         administradorDeLiga.getEquipoPorNombre("San Lorenzo").getJugarorPorNombre("Emiliano"), 3);
         administradorDeLiga.cambiarJugador(administradorDeLiga.getEquipoPorNombre("River").getJugarorPorNombre("Alonso"),administradorDeLiga.getEquipoPorNombre("River").getJugarorPorNombre("Federico"), 80);
+        administradorDeLiga.registrarGolEnPartido(partido2,
+        administradorDeLiga.getEquipoPorNombre("River").getJugarorPorNombre("Alonso"), 3);
         administradorDeLiga.finalizarPartido(partido2);
         
         System.out.println("Bienvenido a la Liga Chad!!!");
@@ -176,7 +180,7 @@ public class App {
                         evaluadorDeEstadisticas.reporteGeneral();
                     }
                     if (opSubMenu == 7) {
-                        evaluadorDeEstadisticas.reporteEquipo(null);
+                        evaluadorDeEstadisticas.reporteEquipoPorTerminal();
                     }
                 } while (opSubMenu!=0);
             }

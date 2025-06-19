@@ -32,51 +32,86 @@ public class EvaluadorDeEstadisticasServiceImpl implements EvaluadorDeEstadistic
 
     @Override
     public void reporteGeneral() {
+        System.out.println("-------------------------------");
+        System.out.println("\tREPORTE GENERAL");
+        System.out.println("-------------------------------");
         System.err.println("Total de goles en la liga: " + totalDeGolesDeLiga());
-        System.out.println("El jugador titular mas eficiente fue:");
+        System.out.println();
         mostrarGoleadores();
         System.out.println();
-        System.out.println(getTitularesMasEficientes().size() > 1 ? "Los titulares mas eficientes fueron: "
-                : "El titular mas eficiente fue: ");
-        for (Jugador jugador : getTitularesMasEficientes()) {
-            System.err.println(jugador.getNombre());
+        List<JugadorTitular> titularesMasEficientes = getTitularesMasEficientes();
+        if (titularesMasEficientes.size() > 0) {
+            System.out.println(titularesMasEficientes.size() > 1 ? "Los titulares mas eficientes fueron: "
+                    : "El titular mas eficiente fue: ");
+            int contador = 1;
+            for (Jugador jugador : titularesMasEficientes) {
+                System.err.println(contador+"- "+jugador.getNombre());
+                contador++;
+            }
+        } else {
+            System.out.println("Ningun titular sobresalió!");
         }
         System.out.println();
-        System.out.println(getSuplentesMasEficientes().size() > 1 ? "Los suplentes mas eficientes fueron: "
-                : "El suplente mas eficiente fue: ");
-        for (Jugador jugador : getSuplentesMasEficientes()) {
-            System.err.println(jugador.getNombre());
+        List<JugadorSuplente> suplentesMasEficientes = getSuplentesMasEficientes();
+        if (suplentesMasEficientes.size() > 0) {
+            System.out.println(suplentesMasEficientes.size() > 1 ? "Los suplentes mas eficientes fueron: "
+                    : "El suplente mas eficiente fue: ");
+            int contador = 1;
+            for (Jugador jugador : suplentesMasEficientes) {
+                System.err.println(contador+"- "+jugador.getNombre());
+            }
+        } else {
+            System.out.println("Ningún suplente sobresalió!");
         }
+        System.out.println();
         System.out.println("El equipo con mayor cantidad de goles fue: "+rankingDeEquiposPorGoles().get(0).getKey().getNombre());
     }
 
     @Override
     public void reporteEquipo(Equipo equipo) {
+        List<JugadorTitular> titularesConMasMinutos = equipo.getJugadoresConMasMinutos();
+        List<JugadorSuplente> suplentesMasUsados = equipo.getSuplentesMasUsado();
+        System.out.println("---------------------------------------------------");
         System.out.println("Mostrando reporte de equipo: " + equipo.getNombre());
+        System.out.println("---------------------------------------------------");
         System.out.println("Promedio de goles de jugadores: ");
         System.out.printf(
-                "De un total de %d jugadores y un total de %d goles el promedio de goles por jugador es de %d%n",
+                "De un total de %d jugadores y un total de %d goles el promedio de goles por jugador es de %.2f%n",
                 equipo.getTotalDeJugadores(), equipo.getTotalDeGolesDeJugadores(),
                 equipo.getPromedioGolesPorJugadores());
         if (equipo.getJugadoresSinGoles().size() > 0) {
             System.out.println("De los jugadores registrados en el equipo los siguientes no anotaron goles: ");
+            int contador = 1;
             for (Jugador jugador : equipo.getJugadoresSinGoles()) {
-                System.out.println(jugador.getNombre());
+                System.out.println(contador+"- " + jugador.getNombre());
+                contador++;
             }
         } else {
-            System.out.println("Todos los jugadores registrados en este equipo anotaron goles en la liga");
+            System.out.println("Todos los jugadores registrados en este equipo anotaron goles en la liga.");
         }
-        System.out.println(equipo.getJugadoresConMasMinutos().size() > 1
-                ? "Los jugadores titulares con mas minutos registrados son"
-                : "El jugador titular con mas minutos registrados del equipo es: ");
-        for (Jugador jugador : equipo.getJugadoresConMasMinutos()) {
-            System.out.println(jugador.getNombre());
-        }
-        System.out.println(equipo.getSuplentesMasUsado().size() > 1 ? "Los suplentes mas utilizados fueron: "
-                : "El suplente mas utilizado fue: ");
 
-        for (JugadorSuplente jugador : equipo.getSuplentesMasUsado()) {
-            System.out.println(jugador.getNombre());
+        if (titularesConMasMinutos.size() > 0) {
+            System.out.println(titularesConMasMinutos.size() > 1
+            ? "Los jugadores titulares con mas minutos registrados son:"
+                    : "El jugador titular con mas minutos registrados del equipo es: ");
+            int contador = 1;
+            for (Jugador jugador : titularesConMasMinutos) {
+                System.out.println(contador + "- " + jugador.getNombre());
+                contador++;
+            }
+        } else {
+            System.out.println("No se registraron jugadores con minutos cargados.");
+        }
+        if (suplentesMasUsados.size() > 0) {
+            System.out.println(suplentesMasUsados.size() > 1 ? "Los suplentes mas utilizados fueron: "
+                    : "El suplente mas utilizado fue: ");
+            int contador = 1;
+            for (JugadorSuplente jugador : suplentesMasUsados) {
+                System.out.println(contador+"- "+jugador.getNombre());
+                contador++;
+            }
+        } else {
+            System.out.println("No se registró el uso de suplentes.");
         }
     }
 
@@ -103,20 +138,22 @@ public class EvaluadorDeEstadisticasServiceImpl implements EvaluadorDeEstadistic
     @Override
     public List<Jugador> getGoleadores(){
         List<Jugador> goleadores = new ArrayList<Jugador>();
-        int maximoDeGoles = 0;
         for (Equipo equipo : equipos) {
-            List<Jugador> mejoresJugadores = equipo.getMejoresJugadores();
-            if (mejoresJugadores.size() > 0) {   
-                if (mejoresJugadores.getLast().getCantidadDeGoles() > maximoDeGoles) {
-                    goleadores.clear();
-                    goleadores.addAll(mejoresJugadores);
-                    maximoDeGoles = mejoresJugadores.getLast().getCantidadDeGoles();
-                } else if (mejoresJugadores.getLast().getCantidadDeGoles() == maximoDeGoles&&maximoDeGoles>0) {
-                    goleadores.addAll(mejoresJugadores);
-                }
-            }
+            goleadores.addAll(equipo.getMejoresJugadores());
         }
-        return goleadores;
+        List<Jugador> mejoresJugadores = new ArrayList<Jugador>(); //seguir aca 
+        int maximoDeGoles = 0;
+        for (Jugador jugador : goleadores) {
+            int golesJugador = jugador.getCantidadDeGoles();
+            if (golesJugador > maximoDeGoles) {
+                mejoresJugadores.clear();
+                mejoresJugadores.add(jugador);
+                maximoDeGoles = golesJugador;
+            } else if (golesJugador == maximoDeGoles &&maximoDeGoles>0) {
+                mejoresJugadores.add(jugador);
+            }
+        } 
+        return mejoresJugadores;
     }
 
     @Override
@@ -215,12 +252,14 @@ public class EvaluadorDeEstadisticasServiceImpl implements EvaluadorDeEstadistic
         }
 
         List<JugadorSuplente> listaDeSuplentesEficientes = new ArrayList<JugadorSuplente>();
-        listaDeSuplentesEficientes.add(listaDeJugadoresSuplentes.getFirst());
+        double mayorPorcentajeEficiencia = 0.0;
         for (JugadorSuplente jugador : listaDeJugadoresSuplentes) {
-            if (jugador.porcentajeEficiencia() > listaDeSuplentesEficientes.getLast().porcentajeEficiencia()) {
+            double porcentajeJugador = jugador.porcentajeEficiencia();
+            if (porcentajeJugador > mayorPorcentajeEficiencia) {
                 listaDeSuplentesEficientes.clear();
                 listaDeSuplentesEficientes.add(jugador);
-            } else if (jugador.porcentajeEficiencia() == listaDeSuplentesEficientes.getLast().porcentajeEficiencia()) {
+                mayorPorcentajeEficiencia = porcentajeJugador;
+            } else if (porcentajeJugador == mayorPorcentajeEficiencia&& mayorPorcentajeEficiencia>0.0) {
                 listaDeSuplentesEficientes.add(jugador);
             }
         }
@@ -237,13 +276,14 @@ public class EvaluadorDeEstadisticasServiceImpl implements EvaluadorDeEstadistic
 
         List<JugadorTitular> listaDeTitularesEficientes = new ArrayList<JugadorTitular>();
         
-        int mayorPorcentajeEficiencia = 0;
+        double mayorPorcentajeEficiencia = 0.0;
         for (JugadorTitular jugador : listaDeJugadoresTitulares) {
-            if (jugador.porcentajeEficiencia() > mayorPorcentajeEficiencia) {
+            double porcentajeJugador = jugador.porcentajeEficiencia();
+            if (porcentajeJugador > mayorPorcentajeEficiencia) {
                 listaDeTitularesEficientes.clear();
                 listaDeTitularesEficientes.add(jugador);
-                mayorPorcentajeEficiencia = jugador.porcentajeEficiencia();
-            } else if (jugador.porcentajeEficiencia() == mayorPorcentajeEficiencia&&mayorPorcentajeEficiencia>0) {
+                mayorPorcentajeEficiencia = porcentajeJugador;
+            } else if (porcentajeJugador == mayorPorcentajeEficiencia&&mayorPorcentajeEficiencia>0.0) {
                 listaDeTitularesEficientes.add(jugador);
             }
         }

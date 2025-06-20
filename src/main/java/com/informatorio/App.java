@@ -14,6 +14,8 @@ import com.informatorio.entradaUtils.LectorAccionesUsuario;
 import com.informatorio.salidaUtils.MostrarMenu;
 import com.informatorio.servicios.administradorDeLiga.AdministradorDeLigaService;
 import com.informatorio.servicios.administradorDeLiga.impl.AdministradorDeLigaServiceImpl;
+import com.informatorio.servicios.archivos.ArchivosService;
+import com.informatorio.servicios.archivos.impl.ArchivosServiceImpl;
 import com.informatorio.servicios.evaluadorDeEstadisticas.EvaluadorDeEstadisticasService;
 import com.informatorio.servicios.evaluadorDeEstadisticas.impl.EvaluadorDeEstadisticasServiceImpl;
 
@@ -25,7 +27,7 @@ public class App {
         AdministradorDeLigaService administradorDeLiga = new AdministradorDeLigaServiceImpl(equipos, partidos,
         lectorUsuario);
         EvaluadorDeEstadisticasService evaluadorDeEstadisticas = new EvaluadorDeEstadisticasServiceImpl(equipos, partidos,administradorDeLiga,lectorUsuario);
-        
+        ArchivosService generadorDeCSV = new ArchivosServiceImpl();
         
         administradorDeLiga.registrarEquipo(new Equipo("Boca"));
         administradorDeLiga.registrarEquipo(new Equipo("River"));
@@ -186,7 +188,8 @@ public class App {
             }
             if (opMenuPrincipal == 4) {
                 System.out.println("Exportando datos en CSV");
-                //llamar a exportar CSV
+                Equipo equipoElegido = administradorDeLiga.getEquipoPorNombre(lectorUsuario.ingresarNombreEquipo());
+                generadorDeCSV.exportarEquipoCSV(equipoElegido);
             }
         } while (opMenuPrincipal != 0);
         System.out.println("Gracias por usar la App!");

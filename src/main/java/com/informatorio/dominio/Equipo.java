@@ -196,7 +196,7 @@ public class Equipo {
     }
     
     public double getPromedioGolesPorJugadores() {
-        return getTotalDeGolesDeJugadores() / getTotalDeJugadores();
+        return getTotalDeGolesDeJugadores() / (double)getTotalDeJugadores();
     }
 
     public boolean listoParaJugar() {

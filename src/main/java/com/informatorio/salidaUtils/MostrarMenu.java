@@ -1,42 +1,9 @@
 package com.informatorio.salidaUtils;
 
-import java.util.List;
+
+import com.informatorio.constantes.OpcionesMenusConstantes;
 
 public class MostrarMenu {
-    public static final List<String> OPCIONES_MENU_PRINCIPAL = List.of(
-        "Administrar equipos",
-        "Administrar partidos",
-        "Ir a estadisticas y reportes",
-        "Exportar CSV");
-    
-    public static final List<String> OPCIONES_MENU_EQUIPOS = List.of(
-        "Listar equipos",
-        "Cargar equipo",
-        "Listar todos los jugadores",
-        "Listar jugadores de un equipo",
-        "Cargar jugador",
-        "Transferir jugador (Intercambiar)"
-    );
-    
-    public static final List<String> OPCIONES_MENU_PARTIDOS = List.of(
-        "Listar partidos",
-        "Cargar partido"
-    );
-    public static final List<String> OPCIONES_MENU_PARTIDO_EN_PROGRESO = List.of(
-        "Cambiar jugador",
-        "Registrar gol",
-        "Eliminar gol"
-    );
-
-    public static final List<String> OPCIONES_MENU_ESTADISTICAS_Y_REPORTES = List.of(
-        "Goleador de la liga",
-        "Promedio de goles",
-        "Ranking de equipos por goles",
-        "Listar suplentes sin ingresos",
-        "Jugadores con mas minutos jugados",
-        "Reporte general de liga",
-        "Reporte de equipo"
-    );
     
     public static void menuPrincipal(){
         System.out.println("\n\t *************************************************");
@@ -44,7 +11,7 @@ public class MostrarMenu {
         System.out.println("\n\t *************************************************");
         System.out.printf("%-40s%-40s%n", "OPCION", "SECCION");
         int contador =1;
-        for (String opcion : OPCIONES_MENU_PRINCIPAL) {
+        for (String opcion : OpcionesMenusConstantes.OPCIONES_MENU_PRINCIPAL) {
             System.out.printf("%-40d%-40s%n",
                     contador, opcion);
             contador++;
@@ -57,7 +24,7 @@ public class MostrarMenu {
         System.out.println("\n\t *************************************************");
         System.out.printf("%-40s%-40s%n", "OPCION", "SECCION");
         int contador =1;
-        for (String opcion : OPCIONES_MENU_EQUIPOS) {
+        for (String opcion : OpcionesMenusConstantes.OPCIONES_MENU_EQUIPOS) {
             System.out.printf("%-40d%-40s%n",
                     contador, opcion);
             contador++;
@@ -71,7 +38,7 @@ public class MostrarMenu {
         System.out.println("\n\t *************************************************");
         System.out.printf("%-40s%-40s%n", "OPCION", "SECCION");
         int contador = 1;
-        for (String opcion : OPCIONES_MENU_PARTIDOS) {
+        for (String opcion : OpcionesMenusConstantes.OPCIONES_MENU_PARTIDOS) {
             System.out.printf("%-40d%-40s%n",
                     contador, opcion);
             contador++;
@@ -84,7 +51,7 @@ public class MostrarMenu {
         System.out.println("\n\t *************************************************");
         System.out.printf("%-40s%-40s%n", "OPCION", "SECCION");
         int contador =1;
-        for (String opcion : OPCIONES_MENU_PARTIDO_EN_PROGRESO) {
+        for (String opcion : OpcionesMenusConstantes.OPCIONES_MENU_PARTIDO_EN_PROGRESO) {
             System.out.printf("%-40d%-40s%n",
                     contador, opcion);
             contador++;
@@ -97,7 +64,7 @@ public class MostrarMenu {
         System.out.println("\n\t *************************************************");
         System.out.printf("%-40s%-40s%n", "OPCION", "SECCION");
         int contador =1;
-        for (String opcion : OPCIONES_MENU_ESTADISTICAS_Y_REPORTES) {
+        for (String opcion : OpcionesMenusConstantes.OPCIONES_MENU_ESTADISTICAS_Y_REPORTES) {
             System.out.printf("%-40d%-40s%n",
                     contador, opcion);
             contador++;

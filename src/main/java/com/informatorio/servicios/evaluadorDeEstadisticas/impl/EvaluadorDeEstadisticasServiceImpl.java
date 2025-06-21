@@ -191,7 +191,7 @@ public class EvaluadorDeEstadisticasServiceImpl implements EvaluadorDeEstadistic
             } else {
                 promedioGolesPartidos = 0.0;
             }
-            System.err.printf("%-20s%-26d%-26d%-26.2f%-26d%-26d%n",
+            System.err.printf("%-20s%-26d%-26d%-26.2f%-26d%-26.2f%n",
                     equipo.getNombre(),
                     cantidadDeGolesEquipo,
                     equipo.getTotalDeJugadores(),
@@ -312,12 +312,16 @@ public class EvaluadorDeEstadisticasServiceImpl implements EvaluadorDeEstadistic
     }
     @Override
     public void listarTitularesConMasMinutos() {
-        System.out.println("Listando jugadores con mas minutos de juego en la liga por equipo:");
+        System.out.println("Listando jugadores con mas minutos de juego en la liga:");
         int contadorLista = 0;
-        for (Jugador jugador : getTitularesConMasMinutos()) {
-                    contadorLista++;
-                    System.out.println(contadorLista + ". " + jugador.getNombre());
-            }
+        List<JugadorTitular> jugadoresConMasMinutos = getTitularesConMasMinutos();
+        for (Jugador jugador : jugadoresConMasMinutos) {
+            contadorLista++;
+            System.out.println(contadorLista + ". " + jugador.getNombre());
+        }
+        if (contadorLista != 0) {
+            System.out.println(jugadoresConMasMinutos.size()==1?"El jugador acumuló ":"Cada uno de los jugadores acumularon "+jugadoresConMasMinutos.getLast().getMinutosJugados()+" minutos en la liga.");
+        }
         System.out.println("----------------------Fin de lista de jugadores----------------------");
     }
 

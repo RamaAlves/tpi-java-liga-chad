@@ -43,17 +43,13 @@ de la especialización en Java brindada por el Informatorio
 
 Cuando comienza la carga de un partido usted debe cargar todo lo que sucedio durante el partido. Para este modelo no se contemplo la opción de editar posteriormente los datos del partido. Una vez salga del menu de "Cargar partido" el partido pasará a estado finalizado y solo podra ver datos y estadisticas del mismo mediante las opciones provistas en otros menus.
 
-## Falta implementar:
-
-- Menu interactivo
-
 ## Escenario:
 
 - [**Escenario**](./docs/escenario/Escenario-TPI-JAVA.pdf)
 
 ## Diagrama de clases:
 
-- [**Diagrama**](./docs/diagrama/TPI_Java.png)
+- [**Diagrama**](./docs/diagrama/TPI_Java.jpg)
 
 ## Autor:
 

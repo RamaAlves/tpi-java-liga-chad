@@ -15,7 +15,7 @@ public class ArchivosServiceImpl implements ArchivosService{
 
     @Override
     public void exportarEquipoCSV(Equipo equipo) {
-        String ruta = System.getProperty("user.dir").concat(UBICACION_ARCHIVO).concat("misiones-realizadas.csv");
+        String ruta = System.getProperty("user.dir").concat(UBICACION_ARCHIVO).concat(String.format("reporte-jugadores-%s.csv", equipo.getNombre()));
         try{
 
             this.csvWriter = new CSVWriter(new FileWriter(ruta));

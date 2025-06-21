@@ -26,7 +26,6 @@ public class JugadorTitular extends Jugador {
         System.out.printf("Jugador titular: %s entra a la cancha.%n", getNombre());
     }
 
-
     @Override
     public void salirDeLaCancha(int minutos) {
         addMinutosJugados(minutos);

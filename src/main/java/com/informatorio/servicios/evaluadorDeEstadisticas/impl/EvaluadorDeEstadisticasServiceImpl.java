@@ -70,7 +70,7 @@ public class EvaluadorDeEstadisticasServiceImpl implements EvaluadorDeEstadistic
     @Override
     public void reporteEquipo(Equipo equipo) {
         List<JugadorTitular> titularesConMasMinutos = equipo.getJugadoresConMasMinutos();
-        List<JugadorSuplente> suplentesMasUsados = equipo.getSuplentesMasUsado();
+        List<JugadorSuplente> suplentesMasUsados = equipo.getSuplentesMasUsados();
         System.out.println("---------------------------------------------------");
         System.out.println("Mostrando reporte de equipo: " + equipo.getNombre());
         System.out.println("---------------------------------------------------");
@@ -346,12 +346,12 @@ public class EvaluadorDeEstadisticasServiceImpl implements EvaluadorDeEstadistic
         ArrayList<JugadorSuplente> listaDeSuplentesMasUsados = new ArrayList<JugadorSuplente>();
         int maximoPartidosIngresados = -1;
         for (Equipo equipo : equipos) {
-            if (equipo.getSuplentesMasUsado().getLast().getPartidosIngresados() > maximoPartidosIngresados) {
-                maximoPartidosIngresados = equipo.getSuplentesMasUsado().getLast().getPartidosIngresados();
+            if (equipo.getSuplentesMasUsados().getLast().getPartidosIngresados() > maximoPartidosIngresados) {
+                maximoPartidosIngresados = equipo.getSuplentesMasUsados().getLast().getPartidosIngresados();
                 listaDeSuplentesMasUsados.clear();
-                listaDeSuplentesMasUsados.addAll(equipo.getSuplentesMasUsado());
-            } else if(equipo.getSuplentesMasUsado().getLast().getPartidosIngresados()== maximoPartidosIngresados) {
-                listaDeSuplentesMasUsados.addAll(equipo.getSuplentesMasUsado()); 
+                listaDeSuplentesMasUsados.addAll(equipo.getSuplentesMasUsados());
+            } else if(equipo.getSuplentesMasUsados().getLast().getPartidosIngresados()== maximoPartidosIngresados) {
+                listaDeSuplentesMasUsados.addAll(equipo.getSuplentesMasUsados()); 
             }
         }
         System.out.println(

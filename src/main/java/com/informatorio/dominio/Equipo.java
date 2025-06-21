@@ -55,8 +55,8 @@ public class Equipo {
         listaDeJugadores.remove(jugador);
     }
 
-    public ArrayList<JugadorTitular> getListaDeJugadoresTitulares() {
-        ArrayList<JugadorTitular> listaDeJugadoresTitulares = new ArrayList<JugadorTitular>();
+    public List<JugadorTitular> getListaDeJugadoresTitulares() {
+        List<JugadorTitular> listaDeJugadoresTitulares = new ArrayList<JugadorTitular>();
 
         for (Jugador jugador : listaDeJugadores) {
             if (jugador.esTitular()) {
@@ -66,8 +66,8 @@ public class Equipo {
         return listaDeJugadoresTitulares;
     }
     
-    public ArrayList<JugadorSuplente> getListaDeJugadoresSuplentes() {
-        ArrayList<JugadorSuplente> listaDeJugadoresSuplentes = new ArrayList<JugadorSuplente>();
+    public List<JugadorSuplente> getListaDeJugadoresSuplentes() {
+        List<JugadorSuplente> listaDeJugadoresSuplentes = new ArrayList<JugadorSuplente>();
 
         for (Jugador jugador : listaDeJugadores) {
             if (!jugador.esTitular()) {
@@ -77,8 +77,8 @@ public class Equipo {
         return listaDeJugadoresSuplentes;
     }
 
-    public ArrayList<JugadorSuplente> getListaDeJugadoresSinJugar() {
-        ArrayList<JugadorSuplente> listaDeJugadoresSinJugar = new ArrayList<JugadorSuplente>();
+    public List<JugadorSuplente> getListaDeJugadoresSinJugar() {
+        List<JugadorSuplente> listaDeJugadoresSinJugar = new ArrayList<JugadorSuplente>();
         for (JugadorSuplente jugadorSuplente : getListaDeJugadoresSuplentes()) {
             if (jugadorSuplente.getPartidosIngresados()==0) {
                 listaDeJugadoresSinJugar.add(jugadorSuplente);
@@ -136,8 +136,8 @@ public class Equipo {
     }
     
     public List<JugadorTitular> getJugadoresConMasMinutos() {
-        ArrayList<JugadorTitular> listaDeJugadoresTitulares = getListaDeJugadoresTitulares();
-        ArrayList<JugadorTitular> jugadoresConMasMinutos = new ArrayList<>();
+        List<JugadorTitular> listaDeJugadoresTitulares = getListaDeJugadoresTitulares();
+        List<JugadorTitular> jugadoresConMasMinutos = new ArrayList<>();
         int minutosMaximos = 0;
         for (JugadorTitular jugador : listaDeJugadoresTitulares) {
             if (jugador.getMinutosJugados() > minutosMaximos) {
@@ -151,8 +151,8 @@ public class Equipo {
         return jugadoresConMasMinutos;
     }
 
-    public ArrayList<Jugador> getJugadoresSinGoles() {
-        ArrayList<Jugador> jugadoresSinGoles = new ArrayList<Jugador>();
+    public List<Jugador> getJugadoresSinGoles() {
+        List<Jugador> jugadoresSinGoles = new ArrayList<Jugador>();
         for (Jugador jugador : listaDeJugadores) {
             if (jugador.getCantidadDeGoles() == 0) {
                 jugadoresSinGoles.add(jugador);
@@ -160,8 +160,8 @@ public class Equipo {
         }
         return jugadoresSinGoles;
     }
-    //corregir
-    public List<JugadorSuplente> getSuplentesMasUsado() {
+    
+    public List<JugadorSuplente> getSuplentesMasUsados() {
         ArrayList<JugadorSuplente> listaDeSuplentesMasUsados = new ArrayList<JugadorSuplente>();
         int masIngresos = 0;
         for (JugadorSuplente jugador : getListaDeJugadoresSuplentes()) {
